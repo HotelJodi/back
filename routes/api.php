@@ -22,3 +22,5 @@ Route::get('lanches', [LancheController::class, "index"]);
 
 //Rota para criar um lanche
 Route::post('lanches', [LancheController::class, "store"]);
+
+//======================Rotas Serviços===================
