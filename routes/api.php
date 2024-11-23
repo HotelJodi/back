@@ -17,10 +17,18 @@ Route::get('users', [PostController::class, "index"]);
 Route::post('users', [PostController::class, "store"]);
 
 //======================Rotas Lanches=======================
+//Rota para listar um lanche em específico
+Route::get('lanches/{id}', [LancheController::class, 'show']);
+
 //Rota para listar todos os lanches
 Route::get('lanches', [LancheController::class, "index"]);
 
 //Rota para criar um lanche
 Route::post('lanches', [LancheController::class, "store"]);
 
+//Rota para excluir um lanche (pode ser recuperado posteriormente)
+Route::delete('/lanches/{id}', [LancheController::class, "destroy"]);
+
+//Rota para consultar um lanche excluido
+Route::get('lanchesDestroy', [LancheController::class, "consultDestroy"]);
 //======================Rotas Serviços===================

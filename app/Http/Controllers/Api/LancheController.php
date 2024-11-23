@@ -46,7 +46,14 @@ class LancheController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $lanche = Lanche::find($id);
+
+        if ($lanche) {
+            $lanche->delete();
+            return response()->json(['message' => 'Registro deletado com sucesso!'], 200);
+        }
+        return response()->json(['message' => 'Registro não encontrado!'], 404);
+
     }
 
     /**
@@ -62,6 +69,25 @@ class LancheController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $model = Lanche::find($id);
+
+    // Verifica se o registro existe
+    if (!$model) {
+        return response()->json([
+            'message' => 'Registro não encontrado.',
+        ], 404); // Retorna erro 404
+    }
+
+    // Exclui o registro
+    $model->delete();
+
+    // Retorna uma resposta de sucesso
+    return response()->json([
+        'message' => 'Registro deletado com sucesso!',
+    ], 200);
+    }
+    public function consultDestroy(){
+        $lanchesExcluidos = Lanche::onlyTrashed()->get();
+        return response()->json($lanchesExcluidos);
     }
 }
