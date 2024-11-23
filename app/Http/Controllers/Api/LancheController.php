@@ -86,8 +86,19 @@ class LancheController extends Controller
         'message' => 'Registro deletado com sucesso!',
     ], 200);
     }
+    //Consultar lanche excluido
     public function consultDestroy(){
         $lanchesExcluidos = Lanche::onlyTrashed()->get();
         return response()->json($lanchesExcluidos);
+    }
+    public function consultRestore($id){
+        $registro = Lanche::withTrashed()->find($id);
+
+        if ($registro) {
+            $registro->restore();
+            return response()->json(['message' => 'Registro restaurado com sucesso!']);
+        } 
+    
+        return response()->json(['message' => 'Registro não encontrado!'], 404);
     }
 }
